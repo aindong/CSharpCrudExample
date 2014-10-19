@@ -57,9 +57,38 @@ namespace CSharpCRUDExample.Models
             return groups;
         }
 
+        /// <summary>
+        /// Get a group by id
+        /// </summary>
+        /// <param name="id">The id primary key</param>
+        /// <returns>Group</returns>
         public Group FindById(int id)
         {
             Group group = new Group();
+
+            try
+            {
+                using (MySqlConnection con = new MySqlConnection(Properties.Settings.Default.connectionstring))
+                {
+                    con.Open();
+                    string sql = "SELECT id, group_name FROM groups WHERE id = @id";
+                    MySqlCommand sqlCmd = new MySqlCommand(sql, con);
+                    sqlCmd.Parameters.AddWithValue("id", id);
+
+                    MySqlDataReader reader = sqlCmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        group.id = Int32.Parse(reader["id"].ToString());
+                        group.group_name = reader["group_name"].ToString();
+                    }
+                }
+            }
+            catch (MySqlException ex)
+            {
+                // When a mysql error occurs
+                // TODO: Throw an exception or return a string
+            }
 
             return group;
         }
@@ -84,10 +113,15 @@ namespace CSharpCRUDExample.Models
             }
             catch (MySqlException ex)
             {
-
+                // When a mysql error occurs
+                // TODO: Throw an exception or return a strings
             }
         }
 
+        /// <summary>
+        /// Update an existing group
+        /// </summary>
+        /// <param name="group"></param>
         public void Update(Group group)
         {
 
