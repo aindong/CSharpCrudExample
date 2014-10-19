@@ -64,6 +64,9 @@ namespace CSharpCRUDExample.Models
             return group;
         }
 
+        /// <summary>
+        /// Create a new group
+        /// </summary>
         public void Create()
         {
             try
