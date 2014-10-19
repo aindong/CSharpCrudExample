@@ -1,4 +1,9 @@
-﻿using System;
+﻿/*
+ * Copyright:    Zomni Labs
+ * Website:      http://zomnilabs.com
+ * Year created: 2014
+ */
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,6 +20,11 @@ namespace CSharpCRUDExample.App
         public frm_Main()
         {
             InitializeComponent();
+        }
+
+        private void frm_Main_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
